@@ -11,7 +11,32 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        MessageProcessor processor = new MessageProcessor();
+        for(String line : breakIntoLines(args[0])) {
+            int messageID = extractMessageID(line);
+            int packetID = extractPacketID(line);
+            String value = extractMessage(line);
+            processor.add(messageID, packetID, value);
+        }
     }
 
+    private static String[] breakIntoLines(String text) {
+        // TODO: do stuff
+        return null;
+    }
+
+    private static int extractMessageID(String line) {
+        // TODO: do stuff
+        return -1;
+    }
+
+    private static int extractPacketID(String line) {
+        // TODO: do stuff
+        return -1;
+    }
+
+    private static String extractMessage(String line) {
+        // TODO: do stuff
+        return null;
+    }
 }
