@@ -3,7 +3,7 @@
  * Date:       27 Sep 2015
  * Project:    CSC 316 Project1
  */
-package project1.teamdragon.csc316;
+package csc_316_project1;
 
 public class Main {
 
