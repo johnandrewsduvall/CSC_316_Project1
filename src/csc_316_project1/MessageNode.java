@@ -1,5 +1,10 @@
-package project1.teamdragon.csc316;
+package csc_316_project1;
 
 public class MessageNode extends Node {
-    public CustomLinkedList packets;
+    public CustomLinkedList packetList;
+
+    public MessageNode(int id) {
+        super(id);
+        packetList = new CustomLinkedList();
+    }
 }

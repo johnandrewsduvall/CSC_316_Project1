@@ -1,9 +1,14 @@
-package project1.teamdragon.csc316;
+package csc_316_project1;
 
 public class MessageProcessor {
-    public CustomLinkedList messages;
+    public CustomLinkedList messageList;
+
+    public MessageProcessor() {
+        messageList = new CustomLinkedList();
+    }
 
     public void add(int messageID, int packetID, String value) {
-        // TODO: Do stuff
+        MessageNode messageNode = (MessageNode)(messageList.getOrCreateNode(messageID, new MessageNode(messageID)));
+        messageNode.packetList.insertNode(new PacketNode(packetID, value));
     }
 }
