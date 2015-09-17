@@ -32,9 +32,13 @@ public class Main {
             PacketNode packetNode = (PacketNode)(messageNode.packetList.head);
             while (packetNode != null) {
                 System.out.println("Packet " + packetNode.id + ": " + packetNode.value);
+                packetNode = (PacketNode)packetNode.next;
+                System.out.print("-");
             }
             messageNode = (MessageNode)(messageNode.next);
+            
         }
+        System.out.println("done");
     }
 
     private static void processLine(MessageProcessor processor, String line) {
