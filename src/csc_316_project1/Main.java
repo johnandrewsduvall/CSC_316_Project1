@@ -16,7 +16,7 @@ public class Main {
 
         // Test processor code
         processor.add(3, 2, "morning");
-        processor.add(17, 10, "See");
+        processor.add(17, 1, "See");
         processor.add(10, 3, "you");
         processor.add(17, 2, "forget");
         processor.add(10, 1, "How");
@@ -28,17 +28,16 @@ public class Main {
         // Output
         MessageNode messageNode = (MessageNode)(processor.messageList.head);
         while (messageNode != null) {
-            System.out.println("Message " + messageNode.id);
+            System.out.println();
+            System.out.println("--- Message " + messageNode.id);
             PacketNode packetNode = (PacketNode)(messageNode.packetList.head);
             while (packetNode != null) {
-                System.out.println("Packet " + packetNode.id + ": " + packetNode.value);
+                System.out.println(packetNode.value);
                 packetNode = (PacketNode)packetNode.next;
-                System.out.print("-");
             }
+            System.out.println("--- End Message " + messageNode.id);
             messageNode = (MessageNode)(messageNode.next);
-            
         }
-        System.out.println("done");
     }
 
     private static void processLine(MessageProcessor processor, String line) {

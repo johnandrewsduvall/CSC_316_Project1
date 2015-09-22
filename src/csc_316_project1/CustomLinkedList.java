@@ -16,43 +16,37 @@ public class CustomLinkedList {
             if (nodeID == currentNode.id) {
                 return currentNode;
             } else if (currentNode.next == null || currentNode.next.id > nodeID) {
-                // It should belong after this node but doesn't exist yet.
-                // Insert it here (this handles tails)
+                // This node belongs between current node and next (handles tails)
                 newNodeDefault.next = currentNode.next;
                 currentNode.next = newNodeDefault;
                 break;
             }
+            currentNode = currentNode.next;
         }
 
         return newNodeDefault;
     }
 
     public void insertNode(Node node) {
-        // Handle empty list
-        if (this.head == null) {
+        // Head replacement
+        if (this.head == null || this.head.id > node.id) {
+            node.next = head;
             this.head = node;
             return;
         }
 
-        // Handle head replacement
-        if (this.head.id > node.id) {
-            node.next = this.head;
-            this.head = node;
-            return;
-        }
-
-        // Traverse the list until we find its place
+        // Traverse the rest of the list
         Node currentNode = this.head;
-        while (currentNode.next != null) {
+        while (currentNode != null) {
             if (currentNode.id == node.id) {
                 // Replace the current node
+                System.out.println("Replacing node value " + node.id);
                 node.next = currentNode.next;
                 currentNode = node;
                 return;
             }
-            if (currentNode.next.id < node.id || currentNode.next == null) {
-                // Place the node between current and next
-                // Note: this will handle tails as well
+            else if (currentNode.next == null || currentNode.next.id > node.id) {
+                // This node belongs between current node and next (handles tails)
                 node.next = currentNode.next;
                 currentNode.next = node;
                 return;
