@@ -9,7 +9,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         MessageProcessor processor = new MessageProcessor();
         // while Scanner has next line
             // process next line
@@ -26,39 +26,57 @@ public class Main {
         processor.add(10, 4, "doing");
 
         // Output
-        MessageNode messageNode = (MessageNode)(processor.messageList.head);
-        while (messageNode != null) {
-            System.out.println();
-            System.out.println("--- Message " + messageNode.id);
-            PacketNode packetNode = (PacketNode)(messageNode.packetList.head);
-            while (packetNode != null) {
-                System.out.println(packetNode.value);
-                packetNode = (PacketNode)packetNode.next;
-            }
-            System.out.println("--- End Message " + messageNode.id);
-            messageNode = (MessageNode)(messageNode.next);
+        printMessages(processor.messages);
+    }
+
+    private static void processLine(MessageProcessor processor, String line) throws Exception {
+        long messageID = extractMessageID(line);
+        long packetID = extractPacketID(line);
+        String text = extractText(line);
+        processor.add(messageID, packetID, text);
+    }
+
+    private static long extractMessageID(String line) {
+        // TODO: do stuff
+        return -1;
+    }
+
+    private static long extractPacketID(String line) {
+        // TODO: do stuff
+        return -1;
+    }
+
+    private static String extractText(String line) {
+        // TODO: do stuff
+        return null;
+    }
+
+    private static void printMessages(CustomLinkedList<Message> messages) {
+        CustomNode<Message> messageNode = messages.head;
+        printMessage(messageNode.id, messageNode.value);
+        while (messageNode.hasNext()) {
+            messageNode = messageNode.next;
+            printMessage(messageNode.id, messageNode.value);
         }
     }
 
-    private static void processLine(MessageProcessor processor, String line) {
-        int messageID = extractMessageID(line);
-        int packetID = extractPacketID(line);
-        String value = extractMessage(line);
-        processor.add(messageID, packetID, value);
+    private static void printMessage(long messageID, Message message) {
+        System.out.println();
+        System.out.println("--- Message " + messageID);
+        printPackets(message.packets);
+        System.out.println("--- End Message " + messageID);
     }
 
-    private static int extractMessageID(String line) {
-        // TODO: do stuff
-        return -1;
+    private static void printPackets(CustomLinkedList<Packet> packets) {
+        CustomNode<Packet> packetNode = packets.head;
+        printPacket(packetNode.value);
+        while (packetNode.hasNext()) {
+            packetNode = packetNode.next;
+            printPacket(packetNode.value);
+        }
     }
 
-    private static int extractPacketID(String line) {
-        // TODO: do stuff
-        return -1;
-    }
-
-    private static String extractMessage(String line) {
-        // TODO: do stuff
-        return null;
+    private static void printPacket(Packet packet) {
+        System.out.println(packet.text);
     }
 }
