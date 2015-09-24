@@ -6,12 +6,11 @@
 package csc_316_project1;
 
 /**
- * A -rolled ADT for storing sorted linked lists
+ * A custom-rolled generic class for storing sorted linked lists
  * @author Matthew Watkins
  * @version 1.0
 */
-public class SortedLinkedList<E>
-{
+public class SortedLinkedList<E> {
     /**
     * Head of the linked list
     */
@@ -39,41 +38,37 @@ public class SortedLinkedList<E>
     * @return the node found or affected
     */
     public Node<E> getOrCreateNode(long nodeID, boolean updateValue,
-                                                E value) throws Exception
-    {
+                                                     E value) throws Exception {
         // Create a default node (in case we need to create)
         Node<E> newNode = new Node<E>(nodeID, value);
 
         // Check to see if it should become the head
-        if (isEmpty())
-        {
+        if (isEmpty()) {
             this.head = newNode;
             return newNode;
         }
 
         // Traverse through the list to find its place
         Node<E> currentNode = this.head;
-        while (currentNode != null)
-        {
-            // Handle matching node ID
-            if (currentNode.id == nodeID)
-            {
-                if (updateValue)
-                {
+        while (currentNode != null) {
+            if (currentNode.id == nodeID) {
+                if (updateValue) {
                     // Replace the node's value with the value passed in
                     currentNode.value = value;
                 }
+
+                // Return the matched node
                 return currentNode;
             }
 
-            // See if we've found our spot in line
             if (currentNode.id > nodeID) {
+                // The new node belongs before this node
                 insertBefore(newNode, currentNode);
                 return newNode;
             }
 
-            // Handle tail condition
             if (!currentNode.hasNext()) {
+                // The new node belongs as teh tail
                 insertAfter(newNode, currentNode);
                 return newNode;
             }
@@ -82,15 +77,21 @@ public class SortedLinkedList<E>
             currentNode = currentNode.next;
         }
 
-        // If we've gotten this far, there is a major bug since the tail condition
-        // should be handled in the loop
-        throw new Exception("Null currentNode. This indicates a a=serious bug");
+        // If we've gotten this far, there is a major bug since the tail
+        // condition should be handled in the loop
+        throw new Exception("Null currentNode. This indicates a serious bug");
     }
 
+    /**
+    * Inserts the provided newNode before the reference node
+    * and after the node that precedes the reference node (if any)
+    * @param newNode the node to be inserted
+    * @param refNode the node that will succeed the new, inerted node
+    */
     private void insertBefore(Node<E> newNode, Node<E> refNode) {
         if (refNode.hasPrevious()) {
-            // Point the "next node" pointer of the reference node's predecessor
-            // to the new node
+            // Point the "next node" pointer of the reference node's
+            // predecessor to the new node
             refNode.previous.next = newNode;
 
             // Copy the reference node's "previous node" pointer
@@ -110,10 +111,16 @@ public class SortedLinkedList<E>
         newNode.next = refNode;
     }
 
+    /**
+    * Inserts the provided newNode after the reference node
+    * and before the node that succeeds the reference node (if any)
+    * @param newNode the node to be inserted
+    * @param refNode the node that will precede the new, inerted node
+    */
     private void insertAfter(Node<E> newNode, Node<E> refNode) {
         if (refNode.hasNext()) {
-            // Point the "previous node" pointer of the reference node's successor
-            // to the new node
+            // Point the "previous node" pointer of the reference
+            // node's successor to the new node
             refNode.next.previous = newNode;
         }
 
