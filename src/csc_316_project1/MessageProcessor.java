@@ -1,16 +1,14 @@
 package csc_316_project1;
 
 public class MessageProcessor {
-    public CustomLinkedList<Message> messages;
+    public SortedLinkedList<Message> messages;
 
     public MessageProcessor() {
-        this.messages = new CustomLinkedList<Message>();
+        this.messages = new SortedLinkedList<Message>();
     }
 
     public void add(long messageID, long packetID, String text) throws Exception {
-        CustomNode<Message> messageNode = this.messages.getOrCreateNode(messageID, true, new Message());
-        Message msg = messageNode.value;
-        CustomLinkedList<Packet> packets = msg.packets;
-        packets.getOrCreateNode(packetID, true, new Packet(text));
+        Node<Message> messageNode = this.messages.getOrCreateNode(messageID, false, new Message());
+        messageNode.value.packets.getOrCreateNode(packetID, true, new Packet(text));
     }
 }

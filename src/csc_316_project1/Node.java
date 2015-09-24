@@ -1,12 +1,12 @@
 package csc_316_project1;
 
-public class CustomNode<E> {
+public class Node<E> {
     public long id;
     public E value;
-    public CustomNode<E> previous = null;
-    public CustomNode<E> next = null;
+    public Node<E> previous = null;
+    public Node<E> next = null;
 
-    public CustomNode(long id, E value) {
+    public Node(long id, E value) {
         this.id = id;
         this.value = value;
     }

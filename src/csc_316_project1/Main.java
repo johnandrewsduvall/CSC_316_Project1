@@ -1,5 +1,5 @@
 /*
- * Author:     John Andrew S Duvall, [put names here]
+ * Author:     John Andrew S Duvall, Matthew Watkins, ShuJun Ye
  * Date:       27 Sep 2015
  * Project:    CSC 316 Project1
  */
@@ -14,7 +14,8 @@ public class Main {
         // while Scanner has next line
             // process next line
 
-        // Test processor code
+        // Test processor code.
+        // Delete when we have proper tests
         processor.add(3, 2, "morning");
         processor.add(17, 1, "See");
         processor.add(10, 3, "you");
@@ -51,8 +52,8 @@ public class Main {
         return null;
     }
 
-    private static void printMessages(CustomLinkedList<Message> messages) {
-        CustomNode<Message> messageNode = messages.head;
+    private static void printMessages(SortedLinkedList<Message> messages) {
+        Node<Message> messageNode = messages.head;
         printMessage(messageNode.id, messageNode.value);
         while (messageNode.hasNext()) {
             messageNode = messageNode.next;
@@ -63,20 +64,31 @@ public class Main {
     private static void printMessage(long messageID, Message message) {
         System.out.println();
         System.out.println("--- Message " + messageID);
-        printPackets(message.packets);
+        printPackets(messageID, message.packets);
         System.out.println("--- End Message " + messageID);
     }
 
-    private static void printPackets(CustomLinkedList<Packet> packets) {
-        CustomNode<Packet> packetNode = packets.head;
-        printPacket(packetNode.value);
+    private static void printPackets(long messageID, SortedLinkedList<Packet> packets) {
+        long previousPacketID = 0;
+        Node<Packet> packetNode = packets.head;
+        printPacket(messageID, previousPacketID, packetNode.id, packetNode.value);
+        previousPacketID = packetNode.id;
+
         while (packetNode.hasNext()) {
             packetNode = packetNode.next;
-            printPacket(packetNode.value);
+            printPacket(messageID, previousPacketID, packetNode.id, packetNode.value);
+            previousPacketID = packetNode.id;
         }
     }
 
-    private static void printPacket(Packet packet) {
+    private static void printPacket(long messageID, long previousPacketID, long thisPacketID, Packet packet) {
+        long missingPackets = thisPacketID - (previousPacketID + 1);
+        if (missingPackets > 0) {
+            // Log missing packets
+            for (long i = 1; i <= missingPackets; i++) {
+                System.out.println("WARNING: packet " + (previousPacketID + i) + " of message " + messageID + " is missing");
+            }
+        }
         System.out.println(packet.text);
     }
 }
