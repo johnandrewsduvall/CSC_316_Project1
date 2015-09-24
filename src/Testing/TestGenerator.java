@@ -1,23 +1,61 @@
 /*
  * Author:     John Andrew S Duvall
- * Date:       date
- * Project:    project
+ * Date:       27 September 2015
+ * Project:    CSC 316 Project 1
  */
-/**
+
 package Testing;
 
 import csc_316_project1.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TestGenerator {
     public static Scanner in;
+    
     public static void main(String[] args)
     {
-        in = new Scanner(System.in);
-        Message m1 =  MessageBuilder.createMessage("lorem.txt",in);
-        System.out.print("What percentage of packs to drop? Enter a value from "
-                + "0[no dropped packets] to 1.0 [all packets lost]:\t");
+        String file;
+        double dropFactor;
+        ArrayList<String> messageList = new ArrayList<>();
         
+        //For time savings;
+        file = args[0];
+        
+        in = new Scanner(file);
+        while(in.hasNext())
+        {
+            messageList.add(in.nextLine());
+        }
+       
+        System.out.print("What percentage of packs to drop? Enter a value from "
+                + "0[no dropped packets] to 100 [all packets lost]:\t");
+        dropFactor = in.nextDouble();
+
+        try {
+            Main.processLine(null, file);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+       
+    }
+    
+    public ArrayList<String> packetDistorter(ArrayList<String> messageList, double dropFactor)
+    {
+        for(int i = 0; i < messageList.size(); i++)
+        {
+            if(Math.random()*100 < dropFactor)
+            {
+                messageList.remove(i);
+                i--;
+            }
+        }
+        for(int i = 0; i < messageList.size(); i++)
+        {
+            //do something
+        }
+        return messageList;
     }
     
 }
@@ -25,9 +63,7 @@ public class TestGenerator {
 class MessageBuilder
 {
 
-    
-    
-    public static MessageBuilder createMessage(String filename, Scanner in)
+    public static Message createMessage(String filename, Scanner in)
     {
         
         String messages[]  = new String[50];
@@ -43,4 +79,3 @@ class MessageBuilder
         return new Message();
     }
 }
-*/

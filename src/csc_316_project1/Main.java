@@ -5,6 +5,8 @@
  */
 package csc_316_project1;
 
+import java.util.Scanner;
+
 public class Main {
     /**
      * @param args the command line arguments
@@ -13,9 +15,14 @@ public class Main {
         MessageProcessor processor = new MessageProcessor();
         // while Scanner has next line
             // process next line
-
+        Scanner in = new Scanner(System.in);
+        while(in.hasNext())
+        {
+            processLine(processor ,in.nextLine());
+        }
         // Test processor code.
         // Delete when we have proper tests
+        /*
         processor.add(3, 2, "morning");
         processor.add(17, 1, "See");
         processor.add(10, 3, "you");
@@ -25,12 +32,12 @@ public class Main {
         processor.add(3, 1, "Good");
         processor.add(17, 2, "you");
         processor.add(10, 4, "doing");
-
+        */
         // Output
         printMessages(processor.messages);
     }
 
-    private static void processLine(MessageProcessor processor, String line) throws Exception {
+    public static void processLine(MessageProcessor processor, String line) throws Exception {
         long messageID = extractMessageID(line);
         long packetID = extractPacketID(line);
         String text = extractText(line);
