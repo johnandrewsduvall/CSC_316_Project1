@@ -26,12 +26,12 @@ public class MessageProcessor {
 
     /**
     * Adds packet information and inserts it into the proper message and packets
+    * @packetInfo the information about the packet
     */
-    public void add(long messageID, long packetID, String text)
-                                                    throws Exception {
-        Node<Message> messageNode = this.messages.getOrCreateNode(messageID,
-                                                          false, new Message());
-        messageNode.value.packets.getOrCreateNode(packetID,
-                                                        true, new Packet(text));
+    public void add(PacketInfo packetInfo) throws Exception {
+        Node<Message> messageNode = this.messages.getOrCreateNode(
+                                    packetInfo.messageID, false, new Message());
+        messageNode.value.packets.getOrCreateNode(
+                        packetInfo.packetID, true, new Packet(packetInfo.text));
     }
 }
