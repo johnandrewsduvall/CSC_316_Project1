@@ -30,7 +30,12 @@ public class PacketInfo {
     * in format "{msgID} {pktID} {text}"
     * @param line the line of text to parse
     */
-    public static PacketInfo Parse(String line) {
+    public static PacketInfo parse(String line) {
+        String trimmed = line.trim();
+        if (trimmed.length() < 4) {
+            return null;
+        }
+
         StringBuilder msgID = new StringBuilder();
         StringBuilder pktID = new StringBuilder();
         StringBuilder pktText = new StringBuilder();
@@ -39,19 +44,18 @@ public class PacketInfo {
         boolean parsingPacketID = false;
         boolean parsingPacketText = false;
 
-        String trimmed = line.trim();
         for (char c : trimmed.toCharArray()) {
             if (parsingMessageID) {
-                if (Char.isDigit(c)) {
+                if (Character.isDigit(c)) {
                     msgID.append(c);
-                } else if (msgID.length() > 0 && Char.isWhitespace(c)) {
+                } else if (msgID.length() > 0 && Character.isWhitespace(c)) {
                     parsingMessageID = false;
                     parsingPacketID = true;
                 }
             } else if (parsingPacketID) {
-                if (Char.isDigit(c)) {
+                if (Character.isDigit(c)) {
                     pktID.append(c);
-                } else if (pktID.length() > 0 && Char.isWhitespace(c)) {
+                } else if (pktID.length() > 0 && Character.isWhitespace(c)) {
                     parsingPacketID = false;
                     parsingPacketText = true;
                 }
