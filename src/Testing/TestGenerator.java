@@ -3,8 +3,10 @@
  * Date:       date
  * Project:    project
  */
+/**
 package Testing;
 
+import csc_316_project1.*;
 import java.util.Scanner;
 
 public class TestGenerator {
@@ -12,7 +14,7 @@ public class TestGenerator {
     public static void main(String[] args)
     {
         in = new Scanner(System.in);
-        MessageBuilder m1 =  MessageBuilder.createMessage("lorem.txt",in);
+        Message m1 =  MessageBuilder.createMessage("lorem.txt",in);
         System.out.print("What percentage of packs to drop? Enter a value from "
                 + "0[no dropped packets] to 1.0 [all packets lost]:\t");
         
@@ -22,14 +24,7 @@ public class TestGenerator {
 
 class MessageBuilder
 {
-    private int id ,length;
-    private String[] message;
-    public MessageBuilder(int id, int length,String[] message )
-    {
-        this.id = id;
-        this.length = length;
-        this.message = message;
-    }
+
     
     
     public static MessageBuilder createMessage(String filename, Scanner in)
@@ -45,6 +40,7 @@ class MessageBuilder
         
     
      
-        return new MessageBuilder();
+        return new Message();
     }
 }
+*/
