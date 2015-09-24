@@ -3,52 +3,44 @@
  * Date:       date
  * Project:    project
  */
+/**
 package Testing;
 
+import csc_316_project1.*;
 import java.util.Scanner;
 
 public class TestGenerator {
-    public static Scanner in, file;
+    public static Scanner in;
     public static void main(String[] args)
     {
         in = new Scanner(System.in);
+        Message m1 =  MessageBuilder.createMessage("lorem.txt",in);
+        System.out.print("What percentage of packs to drop? Enter a value from "
+                + "0[no dropped packets] to 1.0 [all packets lost]:\t");
         
-        System.out.print("What percentage of packs to drop? Enter a value from 0[no dropped packets] to 1.0 [all packets lost]:\t");
     }
-    
-    /**
-     *
-     * @param message
-     * @param dropFactor
-     * @return
-     */
     
 }
-class Message
+
+class MessageBuilder
 {
-    private int id ,length;
-    private String[] message;
-    public Message(int id, int length,String[] message )
-    {
-        this.id = id;
-        this.length = length;
-        this.message = message;
-    }
+
     
-    public static Message createMessage(String filename, Scanner in)
+    
+    public static MessageBuilder createMessage(String filename, Scanner in)
     {
-        System.out.print("How many words?:\t");
-        int length = in.nextInt();
-        in.nextLine();
-        String[] message  = new String[length];
+        
+        String messages[]  = new String[50];
         Scanner file = new Scanner(filename);
-        for(int i = 0; i < length; i++)
+        int i = 0;
+        while(file.hasNextLine())
         {
-            message[i] = file.next();
+            messages[i++] = file.nextLine();
         }
         
     
      
-        return null;
+        return new Message();
     }
 }
+*/
