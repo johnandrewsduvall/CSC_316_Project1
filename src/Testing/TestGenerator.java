@@ -31,17 +31,11 @@ public class TestGenerator {
         System.out.print("What percentage of packs to drop? Enter a value from "
                 + "0[no dropped packets] to 100 [all packets lost]:\t");
         dropFactor = in.nextDouble();
-
-        try {
-            Main.processLine(null, file);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        messageList = packetDistorter(messageList,dropFactor);
+        
         }
         
-       
-    }
-    
-    public ArrayList<String> packetDistorter(ArrayList<String> messageList, double dropFactor)
+       public static ArrayList<String> packetDistorter(ArrayList<String> messageList, double dropFactor)
     {
         for(int i = 0; i < messageList.size(); i++)
         {
@@ -57,8 +51,11 @@ public class TestGenerator {
         }
         return messageList;
     }
-    
 }
+    
+    
+    
+
 
 class MessageBuilder
 {
