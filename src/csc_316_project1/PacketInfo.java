@@ -5,14 +5,27 @@
  */
 package csc_316_project1;
 
+import java.util.Scanner;
+
 /**
  * A class for parsing and storing packet information
  * @author Matthew Watkins
  * @version 1.0
 */
 public class PacketInfo {
+    /**
+    * Message ID of the packet
+    */
     public long messageID;
+
+    /**
+    * Packet ID of the packet
+    */
     public long packetID;
+
+    /**
+    * Text value of the packet
+    */
     public String text;
 
     /**
@@ -22,7 +35,7 @@ public class PacketInfo {
     public PacketInfo(long messageID, long packetID, String text) {
         this.messageID = messageID;
         this.packetID = packetID;
-        this.text = text;
+        this.text = text.trim();
     }
 
     /**
@@ -31,42 +44,15 @@ public class PacketInfo {
     * @param line the line of text to parse
     */
     public static PacketInfo parse(String line) {
+        // Trim the line. Return null if nothing to parse
         String trimmed = line.trim();
         if (trimmed.length() < 4) {
             return null;
         }
 
-        StringBuilder msgID = new StringBuilder();
-        StringBuilder pktID = new StringBuilder();
-        StringBuilder pktText = new StringBuilder();
-
-        boolean parsingMessageID = true;
-        boolean parsingPacketID = false;
-        boolean parsingPacketText = false;
-
-        for (char c : trimmed.toCharArray()) {
-            if (parsingMessageID) {
-                if (Character.isDigit(c)) {
-                    msgID.append(c);
-                } else if (msgID.length() > 0 && Character.isWhitespace(c)) {
-                    parsingMessageID = false;
-                    parsingPacketID = true;
-                }
-            } else if (parsingPacketID) {
-                if (Character.isDigit(c)) {
-                    pktID.append(c);
-                } else if (pktID.length() > 0 && Character.isWhitespace(c)) {
-                    parsingPacketID = false;
-                    parsingPacketText = true;
-                }
-            } else if (parsingPacketText) {
-                pktText.append(c);
-            }
-        }
-
-        long messageID = Long.parseLong(msgID.toString());
-        long packetID = Long.parseLong(pktID.toString());
-
-        return new PacketInfo(messageID, packetID, pktText.toString());
+        // Create the PacketInfo object
+        Scanner scanner = new Scanner(line);
+        return new PacketInfo(scanner.nextLong(), scanner.nextLong(),
+                                                            scanner.nextLine());
     }
 }
