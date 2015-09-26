@@ -8,7 +8,7 @@ package csc_316_project1;
 import java.util.Scanner;
 
 /**
- * The starting entry point of the class
+ * The starting entry point of the program
  * @author Matthew Watkins
  * @version 1.0
 */

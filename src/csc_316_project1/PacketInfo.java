@@ -11,8 +11,19 @@ package csc_316_project1;
  * @version 1.0
 */
 public class PacketInfo {
+    /**
+    * Message ID of the packet
+    */
     public long messageID;
+
+    /**
+    * Packet ID of the packet
+    */
     public long packetID;
+
+    /**
+    * Text value of the packet
+    */
     public String text;
 
     /**
@@ -31,19 +42,23 @@ public class PacketInfo {
     * @param line the line of text to parse
     */
     public static PacketInfo parse(String line) {
+        // Trim the line. Return null if nothing to parse
         String trimmed = line.trim();
         if (trimmed.length() < 4) {
             return null;
         }
 
+        // Pieces of the string to parse
         StringBuilder msgID = new StringBuilder();
         StringBuilder pktID = new StringBuilder();
         StringBuilder pktText = new StringBuilder();
 
+        // Parsing states
         boolean parsingMessageID = true;
         boolean parsingPacketID = false;
         boolean parsingPacketText = false;
 
+        // Iterate char by char, separating into separate strings to parse
         for (char c : trimmed.toCharArray()) {
             if (parsingMessageID) {
                 if (Character.isDigit(c)) {
@@ -64,9 +79,11 @@ public class PacketInfo {
             }
         }
 
+        // Parse the message and packet IDs
         long messageID = Long.parseLong(msgID.toString());
         long packetID = Long.parseLong(pktID.toString());
 
+        // Create the PacketInfo object
         return new PacketInfo(messageID, packetID, pktText.toString());
     }
 }
