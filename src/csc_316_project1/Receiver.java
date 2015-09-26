@@ -17,6 +17,11 @@ public class Receiver {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
+        // TODO: Use the below file paths passed in
+        // rather than System.in
+        String inputFilePath = args[0];
+        String outputFilePath = args[1];
+
         MessageProcessor processor = new MessageProcessor();
         Scanner scanner = new Scanner(System.in);
 
