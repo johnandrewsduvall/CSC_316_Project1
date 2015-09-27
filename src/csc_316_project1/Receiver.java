@@ -8,6 +8,7 @@ package csc_316_project1;
 import java.util.Scanner;
 import java.io.*;
 
+
 /**
  * A class to receive and print packets
  * @author Matthew Watkins
@@ -19,16 +20,15 @@ public class Receiver {
      * @param args the command line arguments.
      * Arg0 = input file path,
      * Arg1 = output file path
+     * @throws java.io.FileNotFoundException
     */
     public static void main(String[] args) throws Exception,
                                                          FileNotFoundException {
-        // Parse the input file
-        MessageProcessor processor = parseFile(args[0]);
-
-        // Write to the output file
-        print(args[1], processor);
+                     // Parse the input file
+                     MessageProcessor processor = parseFile(args[0]);
+                     // Write to the output file
+                     print(args[1], processor);
     }
-
     /**
      * Reads the specified file and returns a parsed object of the data
      * @param inputFilePath the path of the input file to parse
@@ -50,14 +50,13 @@ public class Receiver {
                 processor.add(packetInfo);
             }
         }
-
         // Return the complete processor
         return processor;
     }
 
     /**
      * Prints the packet messages to the specified file path
-     * @param outputPath the path of the outpu file to write to
+     * @param outputPath the path of the output file to write to
      * processor the object containing the messages to write
     */
     private static void print(String outputPath, MessageProcessor processor)
